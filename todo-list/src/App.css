@@ -1,0 +1,26 @@
+button {
+  border-radius: 6px;
+  border-width: 1px;
+}
+input {
+  border-radius: 6px;
+  border-width: 1px;
+}
+
+.medium {
+  width: 100px;
+}
+
+.black {
+  
+  border-radius: 10px;
+  padding: 10px;
+  background-color: black;
+  color: white;
+}
+
+.list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
