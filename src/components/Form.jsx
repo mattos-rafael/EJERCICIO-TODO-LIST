@@ -1,15 +1,38 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import List from "./List"
 import items from "../utils/items.json"
 
 function Form({backgroundColor, size}) {
   const [item, setItem] = useState('')
   const [list, setList] = useState(items.items)
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    if (!item.trim()) return; 
+
+      const timer = setTimeout(() => {
+      setItem("");
+    }, 20000);
+
+    return () => clearTimeout(timer); 
+  }, [item]); 
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    const validate = /\S{6,}/
+
+   if (!validate.test(item)) {
+    return alert('Must have at least 6 character')
+   }
+
+
     setList((prev) => [...prev, item])
     setItem(() => '')
+    setMessage('Item added')
+    setTimeout(() => {
+      setMessage('')
+    }, 5000)
   }
 
   const handleDelete = (id) => {
@@ -46,7 +69,8 @@ function Form({backgroundColor, size}) {
       <button type="button" onClick={() => handleClearList()}>Clear list</button>
       <button type="button" onClick={() => handleReset()}>Reset</button>
 
-      
+      {message ? <p>{message}</p> : null}
+
       <List list={list} handleDelete={handleDelete}/>
       
     </div>
